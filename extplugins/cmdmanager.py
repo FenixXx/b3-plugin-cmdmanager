@@ -116,24 +116,6 @@ class CmdmanagerPlugin(b3.plugin.Plugin):
         name = name.replace(self._adminPlugin.cmdPrefixPrivate, '')
         return name
 
-    def get_group_by_handle(self, handle):
-        """\
-        Return the Group identified by the given handle
-        """
-        handle = str(handle)
-        try:
-
-            if handle.isdigit():
-                group = Group(level=int(handle))
-                return self.console.storage.getGroup(group)
-            else:
-                group = Group(keyword=handle)
-                return self.console.storage.getGroup(group)
-
-        except KeyError:
-            # no group matching the given input
-            return None
-
     def get_command(self, name):
         """\
         Return a Command object given its name
@@ -149,12 +131,12 @@ class CmdmanagerPlugin(b3.plugin.Plugin):
         """\
         Return a string representation of the given command level
         """
-        mingroup = self.get_group_by_handle(command.level[0])
+        mingroup = self.console.getGroup(command.level[0])
         message = '^2%s' % mingroup.keyword
 
         # exclude superadmin level
         if command.level[0] != command.level[1] < 100:
-            maxgroup = self.get_group_by_handle(command.level[1])
+            maxgroup = self.console.getGroup(command.level[1])
             message = '%s^3-^2%s' % (message, maxgroup.keyword)
 
         return message
@@ -277,10 +259,10 @@ class CmdmanagerPlugin(b3.plugin.Plugin):
             command_name = '%s-%s' % (command.command, command.alias)
 
         # the command level
-        mingroup = self.get_group_by_handle(command.level[0])
+        mingroup = self.console.getGroup(command.level[0])
         command_level = '%s' % mingroup.keyword
         if command.level[1] < 100:
-            maxgroup = self.get_group_by_handle(command.level[1])
+            maxgroup = self.console.getGroup(command.level[1])
             command_level = '%s-%s' % (mingroup.keyword, maxgroup.keyword)
 
         # group necessary data
@@ -309,20 +291,23 @@ class CmdmanagerPlugin(b3.plugin.Plugin):
             client.message('^7invalid level format specified: ^1%s' % level)
             return
 
-        # get the minimum required level
-        minlevel = m.group('minlevel')
-        mingroup = self.get_group_by_handle(minlevel)
-        if not mingroup:
+        try:
+            # get the minimum required level
+            minlevel = m.group('minlevel')
+            mingroup = self.console.getGroup(minlevel)
+        except KeyError:
             client.message('^7invalid level specified: ^1%s' % minlevel)
             return
 
         # get the maxiumum required level
         maxlevel = m.group('maxlevel')
         if len(maxlevel):
-            # check given maxlevel to be valid. since this value is optional we'll put checks
-            # here below, so only when the value we are checking has been entered by the user
-            maxgroup = self.get_group_by_handle(maxlevel)
-            if not maxgroup:
+
+            try:
+                # check given maxlevel to be valid. since this value is optional we'll put checks
+                # here below, so only when the value we are checking has been entered by the user
+                maxgroup = self.console.getGroup(maxlevel)
+            except KeyError:
                 client.message('^7invalid level specified: ^1%s' % maxlevel)
                 return
 
@@ -331,7 +316,7 @@ class CmdmanagerPlugin(b3.plugin.Plugin):
                 return
         else:
             # maxlevel not specified => fallback to superadmin
-            maxgroup = self.get_group_by_handle('superadmin')
+            maxgroup = self.console.getGroup('superadmin')
 
         # change the command inside the commands dict()
         command.level = (mingroup.level, maxgroup.level)

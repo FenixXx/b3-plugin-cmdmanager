@@ -15,9 +15,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
-
+#
+# CHANGELOG:
+#
+# 29/01/2014 - 1.0 - Fenix
+#   * initial version
+# 30/01/2014 - 1.1 - Fenix
+#   * make use of self.console.getGroup() to retrieve the client group
+#
 __author__ = 'Fenix'
-__version__ = '1.0'
+__version__ = '1.1'
 
 import b3
 import b3.plugin

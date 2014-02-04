@@ -58,7 +58,7 @@ class CmdmanagerPlugin(b3.plugin.Plugin):
         """
         try:
             self._settings['update_config_file'] = self.config.getboolean('settings', 'update_config_file')
-            self.debug('loaded update_config_file setting: %s' % self._settings['update_config_file'])
+            self.debug('loaded settings/update_config_file setting: %s' % self._settings['update_config_file'])
         except NoOptionError:
             self.warning('could not find settings/update_config_file in config file, '
                          'using default: %s' % self._settings['update_config_file'])

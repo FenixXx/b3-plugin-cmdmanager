@@ -22,9 +22,11 @@
 #   * initial version
 # 30/01/2014 - 1.1 - Fenix
 #   * make use of self.console.getGroup() to retrieve the client group
+# 05/01/2014 - 1.2 - Fenix
+#   * make use of cmd.sayLoudOrPM() in !cmdalias command
 #
 __author__ = 'Fenix'
-__version__ = '1.1'
+__version__ = '1.2'
 
 import b3
 import b3.plugin
@@ -435,11 +437,11 @@ class CmdmanagerPlugin(b3.plugin.Plugin):
         if not m.group('alias'):
             if not command.alias:
                 # inform that no alias is set for this command
-                client.message('^7command ^3%s^1%s ^7has not alias set' % (px, name))
+                cmd.sayLoudOrPM(client, '^7command ^3%s^1%s ^7has not alias set' % (px, name))
                 return
 
             # print the command alias
-            client.message('^7command ^3%s^4%s ^7alias: ^3%s^4%s' % (px, name, px, command.alias))
+            cmd.sayLoudOrPM(client, '^7command ^3%s^4%s ^7alias: ^3%s^4%s' % (px, name, px, command.alias))
             return
 
         # change the command level with the new given value

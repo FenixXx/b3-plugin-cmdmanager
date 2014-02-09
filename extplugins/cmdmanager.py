@@ -22,11 +22,14 @@
 #   * initial version
 # 30/01/2014 - 1.1 - Fenix
 #   * make use of self.console.getGroup() to retrieve the client group
-# 05/01/2014 - 1.2 - Fenix
+# 05/02/2014 - 1.2 - Fenix
 #   * make use of cmd.sayLoudOrPM() in !cmdalias command
+# 09/02/2014 - 1.3 - Fenix
+#   * fixed variable allocation unpredicatability
+#   * removed unused import: Group
 #
 __author__ = 'Fenix'
-__version__ = '1.2'
+__version__ = '1.3'
 
 import b3
 import b3.plugin
@@ -38,7 +41,6 @@ from ConfigParser import ConfigParser
 from ConfigParser import NoOptionError
 from ConfigParser import NoSectionError
 from b3.config import XmlConfigParser
-from b3.clients import Group
 from xml.dom import minidom
 
 

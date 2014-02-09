@@ -300,9 +300,11 @@ class CmdmanagerPlugin(b3.plugin.Plugin):
             client.message('^7invalid level format specified: ^1%s' % level)
             return
 
+        # get the minlevel
+        minlevel = m.group('minlevel')
+
         try:
-            # get the minimum required level
-            minlevel = m.group('minlevel')
+            # get the group corresponsing to minlevel
             mingroup = self.console.getGroup(minlevel)
         except KeyError:
             client.message('^7invalid level specified: ^1%s' % minlevel)

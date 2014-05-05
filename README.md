@@ -5,7 +5,10 @@ Command Manager Plugin for BigBrotherBot
 
 BigBrotherBot plugin which allows admins to manage b3 commands in-game.<br />
 It is capable of modifying commands level and commands aliases while without having to reboot the b3.<br/>
-If specified in the plugin configuration file, it will also keep your plugins configuration files up to date (works with both **xml** and **ini** formats)<br />
+If specified in the plugin configuration file, it will also keep your plugins configuration files up to date (works with both **xml** and **ini** formats).<br /><br />
+
+**NOTE:** since [B3 1.10-dev Daily 194_20140503](http://files.cucurb.net/b3/daily/) this plugin is shipped as built-in, thus all future updates will be committed on the official B3 repository.
+
 
 ## How to install
 
